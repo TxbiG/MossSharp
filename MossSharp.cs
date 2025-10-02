@@ -21,65 +21,102 @@
 // SOFTWARE.
 //
 
+using System;
 using System.Runtime.InteropServices;
 
 namespace Moss {
     // Platform
+    [StructLayout(LayoutKind.Sequential)]
     public class Window() { }
+    [StructLayout(LayoutKind.Sequential)]
     public class Monitor() { }
+    [StructLayout(LayoutKind.Sequential)]
     public class Image() { }
+    [StructLayout(LayoutKind.Sequential)]
     public class Haptic() { }
+    [StructLayout(LayoutKind.Sequential)]
     public class Events() { }
 
-
-    public struct Moss_Locale() { }
+    [StructLayout(LayoutKind.Sequential)]
+    public struct Moss_Locale() { public char language; public char country; }
+    [StructLayout(LayoutKind.Sequential)]
     public struct Moss_VideoMode() { }
+    [StructLayout(LayoutKind.Sequential)]
     public struct Moss_Image() { }
+    [StructLayout(LayoutKind.Sequential)]
     public struct Moss_GammaRamp() { }
 
 
     // Audio
-    [DllImport("moss", CallingConvention = CallingConvention.Cdecl)]
-    public static extern void Moss_Init_Audio() { }
-    [DllImport("moss", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void Moss_Terminate_Audio() { }
+    [StructLayout(LayoutKind.Sequential)]
     public class AudioStream() { }
+    [StructLayout(LayoutKind.Sequential)]
     public class AudioStream2D() { }
+    [StructLayout(LayoutKind.Sequential)]
     public class AudioStream3D() { }
 
+    [StructLayout(LayoutKind.Sequential)]
     public class Speaker() { }
+    [StructLayout(LayoutKind.Sequential)]
     public class Microphone() { }
 
+    [StructLayout(LayoutKind.Sequential)]
     public class AudioListener2D() { }
+    [StructLayout(LayoutKind.Sequential)]
     public class AudioListener3D() { }
 
+    [StructLayout(LayoutKind.Sequential)]
     public class RayAudioListener2D() { }
+
+    [StructLayout(LayoutKind.Sequential)]
     public class RayAudioListener3D() { }
+
+    [DllImport("moss", CallingConvention = CallingConvention.Cdecl)]
+    public static extern void Moss_Init_Audio();
+    [DllImport("moss", CallingConvention = CallingConvention.Cdecl)]
+    public static extern void Moss_Terminate_Audio();
 
 
 
     // Variants
+    [StructLayout(LayoutKind.Sequential)]
     class Vec2() { }
+    [StructLayout(LayoutKind.Sequential)]
     class Vec3() { }
+    [StructLayout(LayoutKind.Sequential)]
     class Vec4() { }
 
+    [StructLayout(LayoutKind.Sequential)]
     class iVec2() { }
+    [StructLayout(LayoutKind.Sequential)]
     class iVec3() { }
+    [StructLayout(LayoutKind.Sequential)]
     class iVec4() { }
 
+    [StructLayout(LayoutKind.Sequential)]
     class dVec2() { }
+    [StructLayout(LayoutKind.Sequential)]
     class dVec3() { }
+    [StructLayout(LayoutKind.Sequential)]
     class dVec4() { }
 
+    [StructLayout(LayoutKind.Sequential)]
     class Float2() { }
+    [StructLayout(LayoutKind.Sequential)]
     class Float3() { }
+    [StructLayout(LayoutKind.Sequential)]
     class Float4() { }
 
+    [StructLayout(LayoutKind.Sequential)]
     class Double2() { }
+    [StructLayout(LayoutKind.Sequential)]
     class Double3() { }
+    [StructLayout(LayoutKind.Sequential)]
     class Double4() { }
 
+    [StructLayout(LayoutKind.Sequential)]
     class Timer() { }
+    [StructLayout(LayoutKind.Sequential)]
     class Tween() { }
 
     // Resources
@@ -87,6 +124,7 @@ namespace Moss {
 
 
     // Renderer
+    [StructLayout(LayoutKind.Sequential)]
     class Renderer() { }
 
 
@@ -98,4 +136,5 @@ namespace Moss {
     // XR
     
     // Maths
+
 }
