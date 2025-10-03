@@ -27,24 +27,26 @@ using System.Runtime.InteropServices;
 namespace Moss {
     // Platform
     [StructLayout(LayoutKind.Sequential)]
-    public class Window() { }
+    public struct WindowHandle { public IntPtr Ptr; }
     [StructLayout(LayoutKind.Sequential)]
-    public class Monitor() { }
+    public struct VideoMode { public int width, height, redBits, greenBits, blueBits, refreshRate;  }
     [StructLayout(LayoutKind.Sequential)]
-    public class Image() { }
+    public class Image() { public int width; int height; unsigned char* pixels;}
     [StructLayout(LayoutKind.Sequential)]
     public class Haptic() { }
     [StructLayout(LayoutKind.Sequential)]
     public class Events() { }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct Moss_Locale() { public char language; public char country; }
+    public struct Moss_Locale() { public char language, country; }
     [StructLayout(LayoutKind.Sequential)]
-    public struct Moss_VideoMode() { }
-    [StructLayout(LayoutKind.Sequential)]
-    public struct Moss_Image() { }
-    [StructLayout(LayoutKind.Sequential)]
-    public struct Moss_GammaRamp() { }
+    public struct GammaRamp { public int size; public IntPtr red, green, blue; }
+
+    [DllImport("moss", CallingConvention = CallingConvention.Cdecl)]
+    public static extern WindowHandle Moss_CreateWindow([MarshalAs(UnmanagedType.LPStr)] string title, int width, int height);
+    
+    [DllImport("moss", CallingConvention = CallingConvention.Cdecl)]
+    public static extern void Moss_DestroyWindow(WindowHandle window);
 
 
     // Audio
@@ -80,32 +82,34 @@ namespace Moss {
 
     // Variants
     [StructLayout(LayoutKind.Sequential)]
-    class Vec2() { }
-    [StructLayout(LayoutKind.Sequential)]
-    class Vec3() { }
-    [StructLayout(LayoutKind.Sequential)]
-    class Vec4() { }
+    public struct Vec2 { public float x, y; }
 
     [StructLayout(LayoutKind.Sequential)]
-    class iVec2() { }
-    [StructLayout(LayoutKind.Sequential)]
-    class iVec3() { }
-    [StructLayout(LayoutKind.Sequential)]
-    class iVec4() { }
+    public struct Vec3 { public float x, y, z; }
 
     [StructLayout(LayoutKind.Sequential)]
-    class dVec2() { }
-    [StructLayout(LayoutKind.Sequential)]
-    class dVec3() { }
-    [StructLayout(LayoutKind.Sequential)]
-    class dVec4() { }
+    public struct Vec4 { public float x, y, z, w; }
 
     [StructLayout(LayoutKind.Sequential)]
-    class Float2() { }
+    class iVec2() { public int x, y; }
     [StructLayout(LayoutKind.Sequential)]
-    class Float3() { }
+    class iVec3() { public int x, y, z; }
     [StructLayout(LayoutKind.Sequential)]
-    class Float4() { }
+    class iVec4() { public int x, y, z, w; }
+
+    [StructLayout(LayoutKind.Sequential)]
+    class dVec2() { public double x, y; }
+    [StructLayout(LayoutKind.Sequential)]
+    class dVec3() { public double x, y, z; }
+    [StructLayout(LayoutKind.Sequential)]
+    class dVec4() { public double x, y, z, w; }
+
+    [StructLayout(LayoutKind.Sequential)]
+    class Float2() { public float x, y; }
+    [StructLayout(LayoutKind.Sequential)]
+    class Float3() { public float x, y, z; }
+    [StructLayout(LayoutKind.Sequential)]
+    class Float4() { public float x, y, z, w; }
 
     [StructLayout(LayoutKind.Sequential)]
     class Double2() { }
@@ -138,3 +142,4 @@ namespace Moss {
     // Maths
 
 }
+
