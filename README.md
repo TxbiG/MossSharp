@@ -1,7 +1,5 @@
 # MossSharp
-
-
-MossSharp is the [Moss Framework](https://github.com/TxbiG/MossFramework).
+MossSharp is the [Moss Framework](https://github.com/TxbiG/MossFramework) binding written in C#.
 
 ## Documentation
 
