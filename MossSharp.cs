@@ -24,6 +24,74 @@
 using System;
 using System.Runtime.InteropServices;
 
+
+internal static class MossNative
+{
+#if WINDOWS
+    private const string LIB = "moss.dll";
+#elif LINUX
+    private const string LIB = "libmoss.so";
+#elif MACOS
+    private const string LIB = "libmoss.dylib";
+#endif
+
+using Moss_Window  = System.IntPtr;
+using Moss_Monitor = System.IntPtr;
+using Moss_Gamepad = System.IntPtr;
+using Moss_Haptic  = System.IntPtr;
+using Moss_Camera  = System.IntPtr;
+
+public enum Moss_WindowMode : int {
+    WINDOWED = 0,
+    MINIMIZED = 1,
+    MAXIMIZED = 2,
+    FULLSCREEN = 3,
+    EXCLUSIVE_FULLSCREEN = 4
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public struct Moss_Image { public int width; public int height; public IntPtr pixels; }
+
+[StructLayout(LayoutKind.Sequential)]
+public struct Moss_Locale() { public char language, country; }
+[StructLayout(LayoutKind.Sequential)]
+public struct GammaRamp { 
+    public int size; 
+    public IntPtr red,  green, blue; 
+}
+    
+[StructLayout(LayoutKind.Sequential)]
+public struct Moss_VideoMode {
+    public int width, height, redBits, greenBits, blueBits, refreshRate;
+}
+
+[DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+public static extern Moss_Window Moss_CreateWindow(string title, int width, int height, Moss_Monitor monitor, Moss_Window share);
+
+[DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+public static extern void Moss_TerminateWindow(Moss_Window window);
+
+[DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+public static extern bool Moss_ShouldWindowClose(Moss_Window window);
+
+[DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+public static extern void Moss_PollEvents();
+
+
+[DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+public static extern bool Moss_IsKeyPressed(Moss_Keyboard key);
+
+[DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+public static extern void Moss_GetMousePosition(out int x, out int y);
+
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public delegate void Moss_WindowSizeCallback(int w, int h);
+
+[DllImport(LIB, CallingConvention = CallingConvention.Cdecl)]
+public static extern void Moss_SetWindowSizeCallback(Moss_WindowSizeCallback callback);
+
+    
 namespace Moss {
     // Platform
     [StructLayout(LayoutKind.Sequential)]
@@ -142,4 +210,5 @@ namespace Moss {
     // Maths
 
 }
+
 
