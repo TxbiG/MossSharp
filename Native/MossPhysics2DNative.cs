@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace MossSharp.Native.Physics2D
 {
-    internal static class MossCoreNative
+    internal static class MossPhysics2DNative
     {
     }
 }
