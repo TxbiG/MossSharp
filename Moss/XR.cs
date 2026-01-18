@@ -1,7 +1,7 @@
 
 
 
-namespace Moss.Utility
+namespace Moss.XR
 {
             public static class XRSystem
             {
