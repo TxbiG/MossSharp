@@ -1,5 +1,5 @@
-using System;
-using System.Runtime.InteropServices;
 
-
-using Moss_Renderer = System.IntPtr;
+namespace Moss.Renderer
+{
+  using Moss_Renderer = IntPtr;
+}
