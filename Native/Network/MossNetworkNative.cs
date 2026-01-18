@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace MossSharp.Native.Network
 {
-    internal static class MossCoreNative
+    internal static class MossNetworkNative
     {
     }
 }
