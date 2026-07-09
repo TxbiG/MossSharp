@@ -95,3 +95,11 @@
     - [XRHand](/docs/XR.md)
     - [XRCamera](/docs/XR.md)
     - [XRCharacterBody](/docs/XR.md)
+
+
+
+
+# Native binaries
+- Android - ARM / ARM 64, x64
+- MacOS / IOS - ARM
+- Linux & Windows - ARM64, x64 / x86
