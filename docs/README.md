@@ -1,105 +1,120 @@
-# CMoss Documentation
+# MossSharp Documentation
 
-## Overview
-- [Introduction](#) — What is MossFramework?
-- [Architecture Overview](#) — Key systems/components.
-- [Getting Started](#getting-started)
-- [Licensing](https://github.com/TxbiG/MossFramework/blob/main/LICENSE)
+Welcome to MossSharp! This is a C# binding for the [Moss Framework](https://github.com/TxbiG/MossFramework), a powerful cross-platform game development and multimedia framework.
 
-## Tutorial
-[Your First 2D Game](https://github.com/TxbiG/MossFramework/tree/main/docs/2DGame#your-first-2d-game), [Your First 3D Game](https://github.com/TxbiG/MossFramework/tree/main/docs/3DGame#your-first-3d-game)
+## Quick Links
+- [Getting Started](./GETTING_STARTED.md) — Set up and create your first project
+- [Architecture](./ARCHITECTURE.md) — Understand the structure and design
+- [API Reference](./API_REFERENCE.md) — Detailed API documentation
+- [Examples](./EXAMPLES.md) — Code examples for common tasks
 
-## Platform
-- [Overview](/docs/Platform.md#overview)
-    - [Window](/docs/Platform.md#window), [Monitor](/docs/Platform.md#monitor), [Input](/docs/Platform.md#input)
-    - [VideoCapture](/docs/Platform.md#videocapture), [Haptic Feedback](/docs/Platform.md#haptic-feedback)
-    - [Threads](/docs/Platform.md#threads), [Processer](/docs/Platform.md#processer)
-    - [Miscellaneous](/docs/Platform.md#miscellaneous)
-    - [Graphics API Specific](/docs/Platform.md#graphics-api-specific)
+## What is MossSharp?
 
-## Audio
-- [Overview](/docs/Audio.md#overview)
-  - [Channels](/docs/Audio.md#channels), [Effects](/docs/Audio.md#effects)
-  - [AudioStream](/docs/Audio.md#audiostream), [AudioStream2](/docs/Audio.md#audiostream2), [AudioStream3](/docs/Audio.md#audiostream3)
-  - [AudioListener2](/docs/Audio.md#audiolistener2), [AudioListener3](/docs/Audio.md#audiolistener3)
-  - [Speaker](/docs/Audio.md#speaker), [Microphone](/docs/Audio.md#microphone)
-  - [RayTrace Audio](/docs/Audio.md#raytraceaudio)
+MossSharp provides .NET bindings for the Moss Framework, enabling C# developers to build high-performance 2D/3D games and multimedia applications. It bridges the power of the native Moss Framework with the simplicity and productivity of the C# language.
 
-## Components
-- 2D
-    - [CPUParticle2D](/docs/2D.md#cpuparticle2d), [GPUParticle2D](/docs/2D.md#gpuparticle2d), [Sprite2D](/docs/2D.md#sprite2d), [Tilemap](/docs/2D.md#tilemap), DampedSpringJoint2D, GrooveJoint2D, PinJoint2D, Line2D, ParallaxLayer, Path2D, PathFollow
-- 3D
-    - [CPUParticle3D](/docs/3D.md#cpuparticle3d), [Decal](/docs/3D.md#decal),  [GPUParticle3D](/docs/3D.md#gpuparticle3d), [GridMap](), [Sprite3D](), [Terrain](/docs/3D.md#terrain), [World3D](), FogVolume, VehicleWheel3D, SpringArm3D, DampedSpringJoint3D, GrooveJoint3D, PinJoint3D
+### Key Features
+- **Cross-platform Support**: Windows, Linux, macOS, Android, and iOS
+- **Game Development**: 2D and 3D rendering, physics, audio, networking
+- **Multimedia**: Graphics rendering, particle systems, UI framework
+- **VR/AR Support**: XR (Extended Reality) subsystem for immersive experiences
+- **Performance**: Native code execution with managed C# wrapper
+- **NuGet Distribution**: Easy dependency management via NuGet packages
 
-## Physics
-### Physics 2D
-- [Overview](/docs/#overview)
-    - [Collision detection](/docs/), [Vehicles 2D](/docs/), [Softbody simulation](/docs/), [Animated ragdolls](/docs/), [Game character simulation](/docs/), [Water buoyancy calculations](/docs/), [Motors](/docs/)
-### Physics 3D
-- [Overview](/docs/#overview)
-    - [Collision detection](/docs/), [Vehicles 3D](/docs/), [Softbody simulation](/docs/) [Animated ragdolls](/docs/), [Game character simulation](/docs/), [Water buoyancy calculations](/docs/), [Motors](/docs/)
+## Repository Structure
 
-## Renderer
-- [Overview](/docs/Renderer.md#overview)
-    - [Introduction](/docs/Renderer.md#introduction)
-    - [Choosing a Renderer](/docs/Renderer.md#choosing-a-renderer)
-    - [Renderer Life-cycles](/docs/Renderer.md#renderer-life-cycles)
-    - [Textures](/docs/Renderer.md#), [Shaders](/docs/Renderer.md#shaders), [Mesh](/docs/Renderer.md#mesh), [Surface](/docs/Renderer.md#surface)
-    - [Viewport & SubViewports](/docs/Renderer.md#), [Cameras](/docs/Renderer.md#)
-    - [Lighting](/docs/Renderer.md#)
-    - [Postprocessing](/docs/Renderer.md#post-processing)
-    - [OpenGL Specific](/docs/Renderer.md#), [Vulkan Specific](/docs/Renderer.md#), [DirectX 12 Specific](/docs/Renderer.md#)
+```
+MossSharp/
+├── src/
+│   ├── MossSharp/          # Main C# binding implementation
+│   ├── Moss.Native/        # Native interop definitions
+│   └── Moss.Native.Debug/  # Debug native bindings
+├── docs/                   # Documentation (this folder)
+├── MossSharp.csproj        # Project configuration
+├── README.md               # Quick overview
+└── LICENSE.txt             # MIT License
+```
 
-## UI
-- [Overview](/docs/UI.md#overview)
-    - [Container](/docs/UI.md#), [CenterContainer](/docs/UI.md#), [VContainer](/docs/UI.md#), [HContainer](/docs/UI.md#), [GridContainer](/docs/UI.md#), [MarginContainer](/docs/UI.md#), [VScrollContainer](/docs/UI.md#), [HScrollContainer](/docs/UI.md#)
-    - [TextureRect](/docs/UI.md#), [ColorRect](/docs/UI.md#)
-    - [RichText](/docs/UI.md#), [Text](/docs/UI.md#)
-    - [Button](UI.md#), [ToggleSwitch](/docs/UI.md#), [Checkbox](/docs/UI.md#), [RadioButton](/docs/UI.md#)
-    - [ProgressBar](UI.md#), [ComboBox](/docs/UI.md#), [Drag](UI.md#), [Slider](#), [Input](/docs/UI.md#), [Color Edit/Picker](/docs/UI.md#), [TreeNode](/docs/UI.md#), [ListBox](/docs/UI.md#), [MenuBar](/docs/UI.md#), [Tooltip](/docs/UI.md#), [Popup](/docs/UI.md#), [Table](/docs/UI.md#), [TabBar](/docs/UI.md#), [Graphs](/docs/UI.md#), [AnimatedIcon](/docs/UI.md#), [Dialogue](/docs/UI.md#), [CodeEditor](/docs/UI.md#), [HexEditor](UI.md#), [DatePicker](/docs/UI.md#)
-    - [TextLink](/docs/UI.md#), [TextLinkOpenURL](/docs/UI.md#)
+## Project Information
 
-## Resources
-- [Overview](/docs/#overview)
-    - [Noise](/docs/), [Tween](/docs/)
-    - [Font](/docs/), [Shader](/docs/), [Mesh](/docs/), [Texture](/docs/)
-    - [Config](/docs/), [Json](/docs/), [PAK](/docs/), [Wav](/docs/),
-    - [Animations](/docs/Animations.md#animations)
+- **Language**: C# (.NET 9.0+)
+- **License**: MIT
+- **Target Frameworks**: .NET 9.0, .NET 10.0
+- **Version**: 2.20.1
 
-## Variants
-- [Overview](/docs/Variants.md#overview)
-    - [Signed Integers](/docs/Variants.md#signed-integers), [Unsigned Integers](/docs/Variants.md#unsigned-integers)
-    - [AABB2](/docs/Variants.md#aabb), [AABB3](/docs/Variants.md#aabb), [Color](/docs/Variants.md#color), [Rect](/docs/Variants.md#rect), [iRect](/docs/Variants.md#recti)
-    - [Curve](/docs/Variants.md#curve), [Curve2](/docs/Variants.md#curve2), [Curve3](/docs/Variants.md#curve3)
-    - [Vec2](/docs/Variants.md#vec2), [Vec3](Variants.md#vec3), [Vec4](/docs/Variants.md#vec4)
-    - [iVec2](/docs/Variants.md#vec2i), [iVec3](/docs/Variants.md#vec3i), [iVec4](/docs/Variants.md#vec4i)
-    - [uVec2](/docs/Variants.md#uvec2), [uVec3](/docs/Variants.md#uvec3), [uVec4](/docs/Variants.md#uvec4)
-    - [bVec2](/docs/Variants.md#bvec2), [bVec3](/docs/Variants.md#bvec3), [bVec4](/docs/Variants.md#bvec4)
-    - [Float2](/docs/Variants.md#float2), [Float3](/docs/Variants.md#float3), [Float4](/docs/Variants.md#float4)
-    - [Double2](/docs/Variants.md#double2), [Double3](/docs/Variants.md#double3), [Double4](/docs/Variants.md#double4)
-    - [Mat2x2](/docs/Variants.md#mat2x2), [Mat2x3](/docs/Variants.md#mat2x3), [Mat2x4](/docs/Variants.md#mat2x4), [Mat3x2](/docs/Variants.md#mat3x2), [Mat3x3](/docs/Variants.md#mat3x3), [Mat3x4](/docs/Variants.md#mat3x4), [Mat4x2](/docs/Variants.md#mat4x2), [Mat4x3](/docs/Variants.md#mat4x3), [Mat4x4](/docs/Variants.md#mat4x4)
-    - [Quat](/docs/Variants.md#quat), [Basis](/docs/Variants.md#basis),
-    - [TVector](/docs/Variants.md#), [TArray](/docs/Variants.md#), [TMap](/docs/Variants.md#), [TSet](/docs/Variants.md#), [TStaticArray](/docs/Variants.md#), [TMultiMap](#), [TPair](#), [Hash](#)
+## Supported Platforms
 
-## Networking
-- [Overview](/docs/Network.md#overview) 
-    - [Client/Server](/docs/#), [RPC](/docs/#)
+MossSharp provides native binaries for:
+- **Windows**: x86, x64
+- **Linux**: x64, ARM64
+- **macOS**: ARM (Apple Silicon), x64
+- **Android**: ARM, ARM64, x64
+- **iOS**: ARM
 
-## XR (Virtual/Augmented Reality)
-- [Overview](/docs/XR.md#overview)
-    - [XRNodes](/docs/XR.md)
-    - [XROrigin](/docs/XR.md)
-    - [XREvents](/docs/XR.md)
-    - [Actions](/docs/XR.md)
-    - [XRControls](/docs/XR.md)
-    - [XRHand](/docs/XR.md)
-    - [XRCamera](/docs/XR.md)
-    - [XRCharacterBody](/docs/XR.md)
+## Major Modules
 
+### Audio
+Handle sound playback, spatial audio, and real-time audio streaming.
+- Audio streams and channels
+- 2D and 3D audio listeners
+- Audio effects and processing
+- Microphone input and speaker output
 
+### Platform
+Manage window creation, input handling, system resources, and platform-specific features.
+- Window and monitor management
+- Input system (keyboard, mouse, gamepad)
+- Threading and processor utilities
+- Video capture capabilities
 
+### Physics
+Simulate realistic physical interactions in 2D and 3D environments.
+- Collision detection
+- Rigid body dynamics
+- Soft body simulation
+- Character controllers
+- Vehicle physics
 
-# Native binaries
-- Android - ARM / ARM 64, x64
-- MacOS / IOS - ARM
-- Linux & Windows - ARM64, x64 / x86
+### Rendering
+Render 2D sprites, 3D geometry, particles, and post-processing effects.
+- Multiple graphics APIs (OpenGL, Vulkan, DirectX 12)
+- Textures, shaders, and meshes
+- Particle systems (CPU and GPU)
+- Lighting and shadows
+- UI rendering
+
+### GUI (User Interface)
+Build interactive user interfaces with containers, controls, and layouts.
+- Container types (horizontal, vertical, grid)
+- Control widgets (buttons, sliders, text input)
+- Layout management
+- Event handling
+
+### Networking
+Implement multiplayer and networked features.
+- Client/server architecture
+- Remote Procedure Calls (RPC)
+- Network synchronization
+
+### XR (Virtual/Augmented Reality)
+Develop immersive VR and AR experiences.
+- XR device tracking
+- Hand and controller input
+- Spatial interaction
+
+### Utility
+Common utilities and helper functions.
+- Variant types (vectors, matrices, quaternions)
+- Collections and data structures
+- Noise generation
+- Tweening and animations
+
+## Getting Help
+
+- **Documentation**: See [Getting Started](./GETTING_STARTED.md)
+- **Examples**: Check out [Examples](./EXAMPLES.md) for common patterns
+- **Issues**: Report bugs on [GitHub Issues](https://github.com/TxbiG/MossSharp/issues)
+- **Original Framework**: Visit [MossFramework](https://github.com/TxbiG/MossFramework) for more information
+
+## License
+
+MossSharp is licensed under the [MIT License](../LICENSE.txt). You are free to use this binding in commercial and personal projects.
