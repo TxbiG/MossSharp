@@ -1,21 +1,36 @@
+using System;
+using System.Runtime.InteropServices;
+using MossSharp.Native.Audio;
 
 namespace Moss.Audio
 {
+    public enum AudioLoadType { FullyLoaded, Streaming }
+    public enum DistanceModel { Linear, Inverse, Exponential }
+    public delegate void AudioStreamCallback(IntPtr buffer, int frames, IntPtr userData);
 
-    using AudioStreamHandle = IntPtr;
-  
+    public readonly record struct AudioAssetHandle(nuint Value)
+    {
+        public bool IsNull => Value == 0;
+    }
+
     public static class AudioSystem
     {
         private static bool initialized;
 
+        public static bool IsInitialized => initialized;
+
         public static void Initialize()
         {
             if (initialized)
+            {
                 return;
+            }
 
-            int result = Native.Audio.MossAudioNative.Moss_Init_Audio();
+            int result = MossAudioNative.Moss_Init_Audio();
             if (result != 0)
-                throw new InvalidOperationException("Failed to initialize Moss Audio");
+            {
+                throw new InvalidOperationException("Failed to initialize Moss Audio.");
+            }
 
             initialized = true;
         }
@@ -23,74 +38,124 @@ namespace Moss.Audio
         public static void Shutdown()
         {
             if (!initialized)
+            {
                 return;
+            }
 
-            Native.Audio.MossAudioNative.Moss_Terminate_Audio();
+            MossAudioNative.Moss_Terminate_Audio();
             initialized = false;
         }
 
-        public static void Update(float deltaTime)
+        public static void Update(float deltaTime) => MossAudioNative.Moss_AudioUpdate(deltaTime);
+
+        public static AudioAssetHandle LoadAsset(IntPtr assetManager, string path, AudioLoadType loadType = AudioLoadType.FullyLoaded)
         {
-            Native.Audio.MossAudioNative.Moss_AudioUpdate(deltaTime);
+            IntPtr nativePath = Marshal.StringToCoTaskMemUTF8(path);
+            try
+            {
+                var desc = new MossAudioNative.MossAudioAssetDesc
+                {
+                    Path = nativePath,
+                    LoadType = (MossAudioNative.AudioLoadType)loadType
+                };
+                return new AudioAssetHandle(MossAudioNative.Moss_AudioAssetLoad(assetManager, in desc));
+            }
+            finally
+            {
+                Marshal.FreeCoTaskMem(nativePath);
+            }
         }
     }
 
-    public sealed class AudioStream : IDisposable {
-        internal IntPtr Handle { get; private set; }
+    public sealed class AudioStream : IDisposable
+    {
+        private MossAudioNative.AudioStreamCallback? callback;
 
-        internal AudioStream(IntPtr handle) {
+        private AudioStream(IntPtr handle)
+        {
             Handle = handle;
         }
 
-        public enum DistanceModel {
-            Linear,
-            Inverse,
-            Exponential
-        }
+        public IntPtr Handle { get; private set; }
+        public bool IsDisposed => Handle == IntPtr.Zero;
 
-
-        public static AudioStream CreateStream() {
-            IntPtr handle = Native.Audio.MossAudioNative.Moss_AudioStreamCreate();
+        public static AudioStream Create()
+        {
+            IntPtr handle = MossAudioNative.Moss_AudioStreamCreate();
             if (handle == IntPtr.Zero)
-                throw new InvalidOperationException("Failed to create audio stream");
-        
+            {
+                throw new InvalidOperationException("Failed to create audio stream.");
+            }
+
             return new AudioStream(handle);
         }
 
-        public void Play() {
+        public void Play()
+        {
             EnsureValid();
-            Native.Audio.MossAudioNative.Moss_AudioStreamPlay(Handle);
+            MossAudioNative.Moss_AudioStreamPlay(Handle);
         }
 
-        public void Stop() {
+        public void Stop()
+        {
             EnsureValid();
-            Native.Audio.MossAudioNative.Moss_AudioStreamStop(Handle);
+            MossAudioNative.Moss_AudioStreamStop(Handle);
         }
 
-        public void Dispose() {
+        public void SetVolume(float volume)
+        {
+            EnsureValid();
+            MossAudioNative.Moss_AudioStreamSetVolume(Handle, volume);
+        }
+
+        public void SetPitch(float pitch)
+        {
+            EnsureValid();
+            MossAudioNative.Moss_AudioStreamSetPitch(Handle, pitch);
+        }
+
+        public void SetLoop(bool loop)
+        {
+            EnsureValid();
+            MossAudioNative.Moss_AudioStreamSetLoop(Handle, loop);
+        }
+
+        public void SetPlaybackRate(float rate)
+        {
+            EnsureValid();
+            MossAudioNative.Moss_AudioStreamSetPlaybackRate(Handle, rate);
+        }
+
+        public void SetPan(float pan)
+        {
+            EnsureValid();
+            MossAudioNative.Moss_AudioStreamSetPan(Handle, pan);
+        }
+
+        public void SetCallback(AudioStreamCallback streamCallback)
+        {
+            EnsureValid();
+            callback = (buffer, frames, userData) => streamCallback(buffer, frames, userData);
+            MossAudioNative.Moss_AudioStreamSetCallback(Handle, callback, IntPtr.Zero);
+        }
+
+        public void Dispose()
+        {
             if (Handle != IntPtr.Zero)
             {
-                Native.Audio.MossAudioNative.Moss_AudioStreamRemove(Handle);
+                MossAudioNative.Moss_AudioStreamRemove(Handle);
                 Handle = IntPtr.Zero;
             }
 
             GC.SuppressFinalize(this);
         }
 
-        private void EnsureValid() {
+        private void EnsureValid()
+        {
             if (Handle == IntPtr.Zero)
-                throw new ObjectDisposedException(nameof(AudioStream));
-        }
-
-        private MossAudioNative.AudioStreamCallback _callback;
-
-        public void SetCallback(Action<float[]> onAudio) {
-            _callback = (buffer, frames, userData) =>
             {
-                // marshal data
-            };
-        
-            Native.Audio.MossAudioNative.Moss_AudioStreamSetCallback(Handle, _callback, IntPtr.Zero);
+                throw new ObjectDisposedException(nameof(AudioStream));
+            }
         }
     }
 }

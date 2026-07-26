@@ -3,14 +3,11 @@ using System.Runtime.InteropServices;
 
 namespace MossSharp.Native.Debug
 {
-    internal static class MossPhysics3DNativeDebug
+    internal static class MossGUINativeDebug
     {
-        public const string Module = "Physics3D";
-
+        public const string Module = "GUI";
         public static string NativeLibraryName => MossNativeLibrary.Name;
-
         public static bool TryLoad(out IntPtr handle) => NativeLibrary.TryLoad(MossNativeLibrary.Name, out handle);
-
         public static void Free(IntPtr handle)
         {
             if (handle != IntPtr.Zero)
