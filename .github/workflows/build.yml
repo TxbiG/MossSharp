@@ -14,13 +14,14 @@ on:
 jobs:
   build-native:
     strategy:
+      fail-fast: false
       matrix:
         include:
           - os: windows-latest
             rid: win-x64
           - os: ubuntu-latest
             rid: linux-x64
-          - os: macos-latest
+          - os: macos-13
             rid: osx-x64
           - os: macos-latest
             rid: osx-arm64
@@ -41,10 +42,20 @@ jobs:
           path: Moss
           submodules: recursive
 
-      - name: Setup CMake
-        uses: cmake-presets/action@v4
-        with:
-          build-type: Release
+      - name: Install Linux dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            ninja-build \
+            libgl1-mesa-dev \
+            libvulkan-dev \
+            mesa-vulkan-drivers \
+            libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev \
+            libwayland-dev libxkbcommon-dev
+
+      # CMake ships preinstalled on windows-latest, ubuntu-latest, and
+      # macos-latest/macos-13 runners — no setup step needed.
 
       - name: Configure Moss
         working-directory: Moss
@@ -56,20 +67,25 @@ jobs:
         run: |
           cmake --build build --config Release
 
+      # NOTE: filenames below assume the CMake target is named "moss"
+      # (lowercase). If Moss's CMakeLists.txt uses
+      # add_library(Moss ...) with a capital M, the actual output will be
+      # Moss.dll / libMoss.so / libMoss.dylib — adjust below to match.
+
       - name: Verify shared library was built
         shell: bash
         run: |
-          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+          if [[ "${{ runner.os }}" == "Windows" ]]; then
             if [ ! -f "Moss/build/Release/moss.dll" ]; then
               echo "ERROR: moss.dll not found after build"
               exit 1
             fi
-          elif [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
+          elif [[ "${{ runner.os }}" == "Linux" ]]; then
             if [ ! -f "Moss/build/libmoss.so" ]; then
               echo "ERROR: libmoss.so not found after build"
               exit 1
             fi
-          elif [[ "${{ matrix.os }}" == "macos-latest" ]]; then
+          elif [[ "${{ runner.os }}" == "macOS" ]]; then
             if [ ! -f "Moss/build/libmoss.dylib" ]; then
               echo "ERROR: libmoss.dylib not found after build"
               exit 1
@@ -81,11 +97,11 @@ jobs:
         working-directory: MossSharp
         run: |
           mkdir -p "runtimes/${{ matrix.rid }}/native"
-          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+          if [[ "${{ runner.os }}" == "Windows" ]]; then
             cp ../Moss/build/Release/moss.dll "runtimes/${{ matrix.rid }}/native/"
-          elif [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
+          elif [[ "${{ runner.os }}" == "Linux" ]]; then
             cp ../Moss/build/libmoss.so "runtimes/${{ matrix.rid }}/native/"
-          elif [[ "${{ matrix.os }}" == "macos-latest" ]]; then
+          elif [[ "${{ runner.os }}" == "macOS" ]]; then
             cp ../Moss/build/libmoss.dylib "runtimes/${{ matrix.rid }}/native/"
           fi
 
