@@ -39,7 +39,6 @@ MossSharp/
 - **Language**: C# (.NET 9.0+)
 - **License**: MIT
 - **Target Frameworks**: .NET 9.0, .NET 10.0
-- **Version**: 2.20.1
 
 ## Supported Platforms
 
