@@ -1,13 +1,12 @@
 namespace MossSharp.Native {
     internal static class MossNativeLibrary {
-#if WINDOWS
-        public const string Name = "moss.dll";
-#elif LINUX
-        public const string Name = "libmoss.so";
-#elif MACOS
-        public const string Name = "libmoss.dylib";
-#else
+        /// <summary>
+        /// Bare library name without platform-specific extensions.
+        /// The .NET runtime resolver automatically maps this to:
+        /// - "moss.dll" on Windows
+        /// - "libmoss.so" on Linux
+        /// - "libmoss.dylib" on macOS
+        /// </summary>
         public const string Name = "moss";
-#endif
     }
 }
