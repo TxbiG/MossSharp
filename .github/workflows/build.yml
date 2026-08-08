@@ -1,4 +1,4 @@
-name: Build Native Binaries & Test
+name: Build
 
 on:
   push:
