@@ -23,8 +23,6 @@ jobs:
             rid: win-x64
           - os: ubuntu-latest
             rid: linux-x64
-          - os: macos-13
-            rid: osx-x64
           - os: macos-latest
             rid: osx-arm64
 
@@ -159,7 +157,6 @@ jobs:
           mkdir -p \
             runtimes/win-x64/native \
             runtimes/linux-x64/native \
-            runtimes/osx-x64/native \
             runtimes/osx-arm64/native
 
       - name: Download win-x64
@@ -173,12 +170,6 @@ jobs:
         with:
           name: native-linux-x64
           path: MossSharp/runtimes/linux-x64/native
-
-      - name: Download osx-x64
-        uses: actions/download-artifact@v4
-        with:
-          name: native-osx-x64
-          path: MossSharp/runtimes/osx-x64/native
 
       - name: Download osx-arm64
         uses: actions/download-artifact@v4
