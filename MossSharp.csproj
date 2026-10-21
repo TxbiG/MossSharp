@@ -29,8 +29,15 @@
     <PackageTags>moss;gamedev;game-engine;graphics;audio;physics;networking;native-bindings;p-invoke</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/TxbiG/MossSharp</RepositoryUrl>
+    <!-- GitHub Packages requires this explicit node structure below to link packages correctly: -->
+    <Repository>
+      <Type>git</Type>
+      <Url>https://github.com</Url>
+    </Repository>
+    
     <PackageProjectUrl>https://github.com/TxbiG/MossSharp</PackageProjectUrl>
     <IsPackable>true</IsPackable>
     <IncludeSymbols>true</IncludeSymbols>
@@ -44,6 +51,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+
     <None Include="runtimes\win-x64\native\moss.dll" 
           Pack="true" 
           PackagePath="runtimes\win-x64\native\" 
