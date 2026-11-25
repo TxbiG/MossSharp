@@ -127,7 +127,7 @@ jobs:
           --logger "console;verbosity=detailed"
 
       - name: Upload native binary
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: native-${{ matrix.rid }}
           path: MossSharp/runtimes/${{ matrix.rid }}/native/
@@ -182,7 +182,7 @@ jobs:
         run: dotnet pack -c Release --no-restore
 
       - name: Upload NuGet package
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: nupkg
           path: MossSharp/bin/Release/*.nupkg
