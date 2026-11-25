@@ -30,12 +30,12 @@ jobs:
 
     steps:
       - name: Checkout MossSharp
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           path: MossSharp
 
       - name: Checkout Moss
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: TxbiG/Moss
           path: Moss
@@ -142,7 +142,7 @@ jobs:
 
     steps:
       - name: Checkout MossSharp
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           path: MossSharp
 
