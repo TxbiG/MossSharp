@@ -1,6 +1,6 @@
 [![Build](https://github.com/TxbiG/MossSharp/actions/workflows/build.yml/badge.svg)](https://github.com/TxbiG/MossSharp/actions/workflows/build.yml)
 # MossSharp
-MossSharp is the [Moss Framework](https://github.com/TxbiG/MossFramework) binding written in C#.
+MossSharp is the [Moss Framework](https://github.com/TxbiG/Moss) binding written in C#.
 
 ## Documentation
 
